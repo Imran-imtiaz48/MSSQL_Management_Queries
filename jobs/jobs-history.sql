@@ -1,7 +1,18 @@
 /**
 	All jobs history in a day
 */
-select b.name, b.description, a.step_id, a.step_name, a.message, a.run_status, a.run_date, a.run_time, a.run_duration  from msdb.dbo.sysjobhistory a
-inner join msdb.dbo.sysjobs b on a.job_id = b.job_id
-where run_date = '20210611' -- format yyyyMMdd
-order by run_time
+SELECT 
+    j.name,
+    j.description,
+    h.step_id,
+    h.step_name,
+    h.message,
+    h.run_status,
+    h.run_date,
+    h.run_time,
+    h.run_duration
+FROM msdb.dbo.sysjobhistory h
+INNER JOIN msdb.dbo.sysjobs j 
+    ON h.job_id = j.job_id
+WHERE h.run_date = 20210611   -- using numeric format, no quotes needed
+ORDER BY h.run_time;
